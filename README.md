@@ -5,7 +5,7 @@ NMS v3.94 Demonstration:
 https://user-images.githubusercontent.com/113896543/221608702-5e20d329-f8aa-4803-bbe8-866eb4f9f6d7.mp4
 
 
-# Hold to Craft - No Strain Crafting Script for No Man's Sky
+# Hold to Craft - No Strain Crafting Script
 
 This is a simple compiled AutoHotkey script that will send the "e" or "d" key for crafting quickly as long as the key is held down. I made this script to prevent repetitive strain injury until Hello Games makes their crafting system less hostile to the player. Rather than attempt to buy a thousand iron plates from a station over the better part of an hour or spamming a key for just as long, this script allows the player to make that same amount of iron plates in under a minute.
 ## Installation
