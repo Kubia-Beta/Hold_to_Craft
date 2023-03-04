@@ -10,19 +10,19 @@ https://user-images.githubusercontent.com/113896543/221608702-5e20d329-f8aa-4803
 This is a simple compiled AutoHotkey script that will send the "e" or "d" key for crafting quickly as long as the key is held down. I made this script to prevent repetitive strain injury until Hello Games makes their crafting system less hostile to the player. Rather than attempt to buy a thousand iron plates from a station over the better part of an hour or spamming a key for just as long, this script allows the player to make that same amount of iron plates in under a minute.
 ## Installation
 
-Simply go the [releases tab](https://github.com/Kubia-Beta/Hold_to_Craft/releases) to download the latest version of the executable. Take Hold.to.Craft.exe and put it somewhere convenient for you before or after you launch No Man’s Sky.
+Simply go the [releases tab](https://github.com/Kubia-Beta/Hold_to_Craft/releases) to download the latest version. Unzip it somewhere convenient for you, and for your first time setup launch Hold to Craft.exe before No Man's Sky to set your keybinds.
     
 ## Usage
 
-To use the script, simply launch the executable file. It will start active.
+To use the script, simply launch the executable file. It will start active, unless it is your first time using the script, where it will perform a one time setup where you can choose to have custom keybinds or the default F1/F4 keybinds. Any time afterward it will be active. Note that the script has a fallback where if it runs for 8 hours straight, it will exit. This is to prevent multiple instances of the script, or lingering scripts.
 
-The scripts controls are simple, and have options for function keys ("F" keys) as well as 60% keyboards that lack them.
+**If at any time you forget your keybinds, simply open the active window of Hold to Craft.exe and it will display your keybinds.**
 
 _USE SCRIPT:_ Hold `E` or `D` depending on the menu context.
 
-_TOGGLE SCRIPT:_ `F1` or `CTRL + SHIFT + T`
+_TOGGLE SCRIPT:_ `F1` if you have default settings or `CTRL + SHIFT + T` (fallback hotkey)
 
-_EXIT SCRIPT:_ `F4` or `CTRL + SHIFT + B`
+_EXIT SCRIPT:_ `F4` if you have default settings or `CTRL + SHIFT + B`(fallback hotkey)
 ## FAQ
 
 #### Do I need AutoHotkey?
@@ -31,13 +31,13 @@ No, not anymore. The executable comes with all necessary components.
 
 #### How do I know if it is on or off?
 
-After launching, you will see a tray icon appear. By default, the program is on. After toggling the script, you will hear two beeps if you toggled the script OFF, and one beep if you toggle the script ON. You will hear a default Windows noise when you exit the script.
+Firstly, the script starts on, so if you just launched it, it is on. If you selected noise to be on, you will hear two beeps if you toggled the script OFF, and one beep if you toggle the script ON. Otherwise, trying to interact with any object with E will not be possible because the script will be pressing and releasing it, an indicator that the script is currently toggled on.
 
 #### Can I change the hotkeys?
 
-Only if you edit the .ahk file yourself and run it. If there are enough requests for it, I will work on a version that will do a one time setup for custom hotkeys.
+Yes! You have a few options. You can change them on the first time setup, which you can re-trigger if you exit the script and rename "htcprefs.ini" located in the "lib" folder to something like "htcprefs.ini.backup". If you want to directly edit htcprefs.ini, keep in mind that you will have to use the [AutoHotkey hotkey scheme](https://www.autohotkey.com/docs/v2/Hotkeys.htm#Symbols) which is very simple. If you wanted to change the pause key to `Alt+Ctrl+Shift+CapsLock`, you would open the ini, find the top of the file `[controls]` edit the keybind to `!^+capslock`, meaning the full line should now read `pause=!^+capslock`, then save. The new keybind will now work!
 ## Credits
 
- - [System icon provided by Corey Ginnivan](https://www.systemuicons.com/images/icons/code.svg)
+ - [Icons provided by Corey Ginnivan](https://www.systemuicons.com/)
  - The #Mod-help channel of the [No Man's Sky Discord](https://discord.gg/22ZAU9H)
 
