@@ -1,6 +1,6 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/Kubia-Beta/Hold_to_Craft?style=plastic)
 
-NMS v3.94 Demonstration:
+NMS v3.94 Demonstration: (Works on 4.1 "Fractal" and above)
 
 https://user-images.githubusercontent.com/113896543/221608702-5e20d329-f8aa-4803-bbe8-866eb4f9f6d7.mp4
 
