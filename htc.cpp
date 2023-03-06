@@ -47,7 +47,10 @@ std::string ReplaceWords(const std::string& input) { //scans the input line and 
 	std::regex ctrlRegex("\\bctrl\\b\\s?", std::regex_constants::icase); //captures "ctrl"
 	std::regex controlRegex("\\bcontrol\\b\\s?", std::regex_constants::icase); //captures "control" instead of "ctrl"
 	std::regex shiftRegex("\\bshift\\b\\s?", std::regex_constants::icase); //captures "shift"
-	std::string output = std::regex_replace(input, altRegex, "!"); //begin constructing the output string, replacing any instance of alt. If none are found, output = input
+	#pragma warning(disable: 4129) //The compiler is not always right, so it thinks "<\^>!" is an escape sequence when it is a literal string of characters being written to a file (warning C4129)
+	std::string output = std::regex_replace(input, altGrRegex, "<\^>!"); //begin constructing the output string, replacing any instance of altGr. If none are found, output = input
+	#pragma warning(default: 4129) //Restores the warning on everything else so if it ACTUALLY is a problem, it will alert you, unlike the string above which does not have any issues
+	output = std::regex_replace(output, altRegex, "!"); //continue for alt
 	output = std::regex_replace(output, ctrlRegex, "^"); //continue for ctrl
 	output = std::regex_replace(output, controlRegex, "^"); //as well as control
 	output = std::regex_replace(output, shiftRegex, "+"); //then finally shift
@@ -59,8 +62,8 @@ std::string ReplaceSymbols(const std::string& input) { //scans just like above, 
 	std::regex altRegex("!"); //checks for "!", the next two check for "^" and "+" respectively
 	std::regex ctrlRegex("\\^");
 	std::regex shiftRegex("\\+");
-	std::string output = std::regex_replace(input, altGrRegex, "altGr "); //again we construct our output string, replacing any "!" with "alt ", if none are found, output = input
-	output = std::regex_replace(output, altRegex, "control ");
+	std::string output = std::regex_replace(input, altGrRegex, "altGr "); //again we construct our output string, replacing any "<\^>!" with "altGr ", if none are found, output = input
+	output = std::regex_replace(output, altRegex, "alt ");
 	output = std::regex_replace(output, ctrlRegex, "control ");
 	output = std::regex_replace(output, shiftRegex, "shift ");
 	return output; //returns the control characters plus whatever the hell the actual input key is
