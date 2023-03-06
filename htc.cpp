@@ -1,7 +1,7 @@
 ///////////////////////////
 // By:                 ///
 // Kubia              ///
-// 03 Mar. 2023      ///
+// 06 Mar. 2023      ///
 ///////////////////////
 
 //this program runs an ini constructor if the ini does not exist, then launches an AutoHotkey executable which reads from the file.
@@ -19,11 +19,11 @@
 
 void pressAnyKeyToContinue() { //just a simple halt for the user that doesn't enter anything into our buffer
 	std::cout << "\nPress any key to continue...";
-	_getch();
+	(void)_getch(); //assigns _getch() to embrace nothingness
 	std::cout << std::endl;
 }
 
-int InputValidation() {
+int GetMenuChoice() {
 	int input = -1; //initialized at -1 in case of user error
 
 	while (true) { //always runs until we break; or return; out of it
@@ -43,6 +43,7 @@ int InputValidation() {
 
 std::string ReplaceWords(const std::string& input) { //scans the input line and replaces the word with 
 	std::regex altRegex("\\balt\\b\\s?", std::regex_constants::icase); //checks for the word "alt" as well as a whitespace after, ignoring case
+	std::regex altGrRegex("\\baltgr\\b\\s?", std::regex_constants::icase); //checks for "altgr" for EU keyboards
 	std::regex ctrlRegex("\\bctrl\\b\\s?", std::regex_constants::icase); //captures "ctrl"
 	std::regex controlRegex("\\bcontrol\\b\\s?", std::regex_constants::icase); //captures "control" instead of "ctrl"
 	std::regex shiftRegex("\\bshift\\b\\s?", std::regex_constants::icase); //captures "shift"
@@ -54,10 +55,12 @@ std::string ReplaceWords(const std::string& input) { //scans the input line and 
 }
 
 std::string ReplaceSymbols(const std::string& input) { //scans just like above, but the process is "reversed"
+	std::regex altGrRegex("<\\^>!"); //checks for the AHK AltGr for EU keyboards
 	std::regex altRegex("!"); //checks for "!", the next two check for "^" and "+" respectively
 	std::regex ctrlRegex("\\^");
 	std::regex shiftRegex("\\+");
-	std::string output = std::regex_replace(input, altRegex, "alt "); //again we construct our output string, replacing any "!" with "alt ", if none are found, output = input
+	std::string output = std::regex_replace(input, altGrRegex, "altGr "); //again we construct our output string, replacing any "!" with "alt ", if none are found, output = input
+	output = std::regex_replace(output, altRegex, "control ");
 	output = std::regex_replace(output, ctrlRegex, "control ");
 	output = std::regex_replace(output, shiftRegex, "shift ");
 	return output; //returns the control characters plus whatever the hell the actual input key is
@@ -96,7 +99,7 @@ void Keybinding() { //one time setup, called only if .\lib\htcprefs.ini does not
 	std::string pauseKey, exitKey, noiseVal;
 	int navigator = 0; //initialize at 0 for safety.
 	std::cout << "Use the Default keybinds [1] or Custom keybinds [0]?\n";
-	navigator = InputValidation();
+	navigator = GetMenuChoice();
 	if (navigator == 0) { //TODO: Input validation for whatever the user just threw into the line, because god knows what they are going to put in
 		std::cout << "Custom Keybinds selected.\nWhen typing the keybind, check your spelling and leave a single space in between inputs.\n";
 		std::cout << "-----Examples:\ncontrol shift a\nAlt pgdn\nControl Shift CapsLock\nALT F12\n----------";
@@ -125,7 +128,7 @@ void Keybinding() { //one time setup, called only if .\lib\htcprefs.ini does not
 	}
 	navigator = 0; //reset
 	std::cout << "Have the sound beeps OFF [1] or have them ON [0]?\n";
-	navigator = InputValidation();
+	navigator = GetMenuChoice();
 	if (navigator == 0) {
 		outfile << "\n[sound]\nnoise=1";
 	}
@@ -144,7 +147,7 @@ void Keybinding() { //one time setup, called only if .\lib\htcprefs.ini does not
 }
 
 int main() {
-	std::cout << "///////////////////////////\n// By:                 ///\n// Kubia              ///\n// 03 Mar. 2023      ///\n///////////////////////\n\n";
+	std::cout << "///////////////////////////\n// By:                 ///\n// Kubia              ///\n// 06 Mar. 2023      ///\n///////////////////////\n\n";
 	std::string filePath = ".\\lib\\htcprefs.ini";
 	if (!std::filesystem::exists(filePath)) { //if it DOESNT exist
 		std::cout << "Now running one time setup.\nAfter inputting your option, press [Enter] to continue.\nOptions will be displayed in braces, so option 0 is [0].\n";
