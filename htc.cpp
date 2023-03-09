@@ -1,7 +1,7 @@
 ///////////////////////////
 // By:                 ///
 // Kubia              ///
-// 06 Mar. 2023      ///
+// 08 Mar. 2023      ///
 ///////////////////////
 
 //this program runs an ini constructor if the ini does not exist, then launches an AutoHotkey executable which reads from the file.
@@ -90,13 +90,14 @@ void ShowKeybinds(std::string filename) { //get the key values of pause and exit
 
 }
 
-void Keybinding() { //one time setup, called only if .\lib\htcprefs.ini does not exist
+void SetupPreferences() { //one time setup, called only if .\lib\htcprefs.ini does not exist
 
 	std::string filename = ".\\lib\\htcprefs.ini"; //The . represents the current dir, and the \\ is used to escape the backslash and create a valid path string
 	std::ofstream outfile(filename); //open or create htcprefs.ini
 	if (!outfile) { //something went wrong!
 		std::cerr << "Error: could not open file htcprefs.ini. Make sure the program has access to the directory.\n";
 		pressAnyKeyToContinue();
+		throw std::runtime_error("\nPlease extract the program into a folder that is not protected.\nThe folder you are using is protected."); //caught in the try block in main
 		return;
 	}
 	std::string pauseKey, exitKey, noiseVal;
@@ -149,16 +150,87 @@ void Keybinding() { //one time setup, called only if .\lib\htcprefs.ini does not
 	pressAnyKeyToContinue();
 }
 
-int main() {
-	std::cout << "///////////////////////////\n// By:                 ///\n// Kubia              ///\n// 06 Mar. 2023      ///\n///////////////////////\n\n";
-	std::string filePath = ".\\lib\\htcprefs.ini";
-	if (!std::filesystem::exists(filePath)) { //if it DOESNT exist
-		std::cout << "Now running one time setup.\nAfter inputting your option, press [Enter] to continue.\nOptions will be displayed in braces, so option 0 is [0].\n";
+void ClearFile(std::string file) { //function called only to clear htcprefs.ini
+	std::ofstream ofs(file, std::ofstream::trunc); //call this only when something goes wrong with the file
+	ofs.close();
+}
+
+bool VerifyIni(std::string file) { //reads the user file to make sure the settings are actually there
+	using namespace std;
+	ifstream infile(file);
+	if (!infile) { //could not open htcprefs.ini
+		cerr << "Error: could not open file htcprefs.ini. Make sure the program has access to the directory.\n";
 		pressAnyKeyToContinue();
-		Keybinding();
-	} else {
-		std::cout << "htcprefs.ini detected.\nYou can always modify the settings in \\lib\\htcprefs.ini.\n";
+		throw std::runtime_error("\nPlease extract the program into a folder that is not protected.\nThe folder you are using is protected."); //caught in the try block in main
 	}
+	string line;
+
+	bool isError = false; //just in case, normally not functional
+
+	while (getline(infile, line)) { //while reading the ini line by line, check for each of the following
+		if (line.find("pause=") != string::npos) { //does pause exist
+			if (line.substr(line.find("pause=") + 6).empty()) { //if it does, does anything exist after it
+				cerr << "\nError: nothing after 'pause=' in file " << file << " .\n"; //if not, we have a problem
+				isError = true; //just in case this somehow doesn't end up with a return
+				return true;
+			}
+		}
+		else if (line.find("exit=") != string::npos) {
+			if (line.substr(line.find("exit=") + 5).empty()) {
+				cerr << "\nError: nothing after 'exit=' in file " << file << " .\n";
+				isError = true;
+				return true;
+			}
+		}
+		else if (line.find("noise=") != string::npos) {
+			if (line.substr(line.find("noise=") + 6).empty()) {
+				cerr << "\nError: nothing after 'noise=' in file " << file << " .\n";
+				isError = true;
+				return true;
+			}
+		}
+	}
+
+	if (!isError){ //if there is NO error, i.e. isError is false
+		return false; //send that there is no error
+		}
+	else { //if we caught an error in any of the above checks and it somehow exited normally
+		return true; //tell the function call that it DID have an error
+	}
+}
+
+int main() {
+	std::cout << "///////////////////////////\n// By:                 ///\n// Kubia              ///\n// 08 Mar. 2023      ///\n///////////////////////\n\n";
+	std::string filePath = ".\\lib\\htcprefs.ini";
+	if (!std::filesystem::exists(filePath)) { //if it DOESNT exist, do our one time setup
+		std::cout << "Now running one time setup.\nAfter inputting your option, press [Enter] to continue.\nOptions will be displayed in braces, so option 0 is [0].\n";
+		try {
+			pressAnyKeyToContinue();
+			SetupPreferences(); //Launches the preference menu
+		}
+		catch (const std::exception& error) { //something went wrong, we cannot access the file
+			std::cerr << error.what() << '\n'; //prints the error message
+			pressAnyKeyToContinue();
+			return 2; //exits
+		}
+	}//if the user already has the file, continue
+
+	try { //now we check if the file HAS information
+		bool integrity = VerifyIni(filePath); //false is working, true is fixable but not working
+		if (integrity) { //we use this set of calls to deconstruct and reconstruct the file
+			std::cerr << "\nError: " << "\nAn error was detected with your htcprefs.ini. Setup will now restart to fix the file.\n";
+			pressAnyKeyToContinue();
+			ClearFile(filePath);
+			SetupPreferences();
+		}
+	}
+	catch (const std::exception& error) { //something went wrong, we cannot access the file
+		std::cerr << error.what() << '\n';
+		pressAnyKeyToContinue();
+		return 2;
+	}
+	//now that all the error checking is done:
+	std::cout << "htcprefs.ini detected.\nYou can always modify the settings in \\lib\\htcprefs.ini.\n";
 
 
 	std::cout << "\nNow running 'Hold to Craft' for No Man's Sky.\nThis terminal will exit when 'Hold to Craft' has exited.\nClosing this terminal will not terminate 'Hold to Craft'.\n";
