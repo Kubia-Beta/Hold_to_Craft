@@ -1,7 +1,7 @@
 ///////////////////////////
 // By:                 ///
 // Kubia              ///
-// 08 Mar. 2023      ///
+// 22 June 2023      ///
 ///////////////////////
 
 //this program runs an ini constructor if the ini does not exist, then launches an AutoHotkey executable which reads from the file.
