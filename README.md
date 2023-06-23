@@ -41,6 +41,10 @@ Yes! You have a few options. You can change them on the first time setup, which 
 
 Please report it on the [issue tracker](https://github.com/Kubia-Beta/Hold_to_Craft/issues)! If you cannot, at least post it on the [mod page bug tracker](https://www.nexusmods.com/nomanssky/mods/2478?tab=bugs)!
 
+#### Do I need to install Visual C++?
+
+No, users should not have to install it, but [installing it may fix an issue if you have a DLL error](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170) (also check for duplicate installs). If an error occurs about their DLL's, the script is compiled in the 2017 version of C++. The 2017 version comes with the current release as well as all others back to 2015 in the main release (so if you download 2022 everything from 2015 to 2022 will now work). No Man's Sky installs 2020 as its highest version right now, but started with 2017, so even old installations should not encounter issues. This was addressed more in [this closed issue](https://github.com/Kubia-Beta/Hold_to_Craft/issues/9).
+
 ## Credits
 
  - [Icons provided by Corey Ginnivan](https://www.systemuicons.com/)
