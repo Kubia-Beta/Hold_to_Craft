@@ -4,8 +4,12 @@ NMS v3.94 Demonstration: (Works on 4.1 "Fractal" and above)
 
 https://user-images.githubusercontent.com/113896543/221608702-5e20d329-f8aa-4803-bbe8-866eb4f9f6d7.mp4
 
+https://github.com/Kubia-Beta/Hold_to_Craft/assets/113896543/84036ef3-12ed-405f-8353-c8c6caac6808.mp4
 
 # Hold to Craft - No Strain Crafting Script
+
+
+
 
 This is a simple compiled AutoHotkey script that will send the "e" or "d" key for crafting quickly as long as the key is held down. I made this script to prevent repetitive strain injury until Hello Games makes their crafting system less hostile to the player. Rather than attempt to buy a thousand iron plates from a station over the better part of an hour or spamming a key for just as long, this script allows the player to make that same amount of iron plates in under a minute.
 ## Installation
@@ -36,6 +40,10 @@ Firstly, the script starts on, so if you just launched it, it is on. If you sele
 #### Can I change the hotkeys?
 
 Yes! You have a few options. You can change them on the first time setup, which you can re-trigger if you exit the script and rename "htcprefs.ini" located in the "lib" folder to something like "htcprefs.ini.backup". If you want to directly edit htcprefs.ini, keep in mind that you will have to use the [AutoHotkey hotkey scheme](https://www.autohotkey.com/docs/v2/Hotkeys.htm#Symbols) which is very simple. If you wanted to change the pause key to `Alt+Ctrl+Shift+CapsLock`, you would open the ini, find the top of the file `[controls]` edit the keybind to `!^+capslock`, meaning the full line should now read `pause=!^+capslock`, then save. The new keybind will now work!
+
+#### Do I need to install Visual C++?
+
+No, users should not have to install it, but [installing it may fix an issue if you have a DLL error](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170) (also check for duplicate installs). If an error occurs about their DLL's, the script is compiled in the 2017 version of C++. The 2017 version comes with the current release as well as all others back to 2015 in the main release (so if you download 2022 everything from 2015 to 2022 will now work). No Man's Sky installs 2020 as its highest version right now, but started with 2017, so even old installations should not encounter issues. This was addressed more in [this closed issue](https://github.com/Kubia-Beta/Hold_to_Craft/issues/9).
 
 #### I found a bug!
 
