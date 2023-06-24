@@ -1,10 +1,16 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/Kubia-Beta/Hold_to_Craft?style=plastic)
 
-NMS v3.94 Demonstration: (Works on 4.1 "Fractal" and above)
+NMS v4.30 Demonstration:
+
+https://github.com/Kubia-Beta/Hold_to_Craft/assets/113896543/a895586c-0b62-42f1-adb8-bfe10c1fb2c8
+
+NMS v3.94 Demonstration:
 
 https://user-images.githubusercontent.com/113896543/221608702-5e20d329-f8aa-4803-bbe8-866eb4f9f6d7.mp4
 
-https://github.com/Kubia-Beta/Hold_to_Craft/assets/113896543/84036ef3-12ed-405f-8353-c8c6caac6808.mp4
+
+
+
 
 # Hold to Craft - No Strain Crafting Script
 
