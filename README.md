@@ -1,6 +1,11 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/Kubia-Beta/Hold_to_Craft?style=plastic)
 
-NMS v3.94 Demonstration: (Works on 4.1 "Fractal" and above)
+
+NMS v4.36 "Singularity" Demonstration: (Works on all versions)
+
+https://github.com/Kubia-Beta/Hold_to_Craft/assets/113896543/a895586c-0b62-42f1-adb8-bfe10c1fb2c8
+
+NMS v3.94 Demonstration: (For those who are still pre-Waypoint)
 
 https://user-images.githubusercontent.com/113896543/221608702-5e20d329-f8aa-4803-bbe8-866eb4f9f6d7.mp4
 
