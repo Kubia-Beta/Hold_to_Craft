@@ -18,6 +18,47 @@
 #include <thread>
 
 
+// FIXME: Convert into a class structure with the classes separated into two files. This is a rewrite.
+class Hotkey {
+public:
+	Hotkey();
+	~Hotkey();
+	std::string ReplaceWords(const std::string& input);
+	std::string ReplaceSymbols(const std::string& input);
+	bool ValidateHotkey(std::string* uncheckedString);
+
+private:
+
+};
+
+Hotkey::Hotkey() {
+}
+
+Hotkey::~Hotkey() {
+}
+
+class Menu {
+public:
+	Menu();
+	~Menu();
+	int GetMenuChoice();
+	void pressAnyKeyToContinue();
+	void ShowKeybinds(std::string filename);
+	void SetupPreferences();
+	void ClearFile(std::string file);
+	bool VerifyIni(std::string file);
+
+private:
+
+};
+
+Menu::Menu() {
+
+}
+
+Menu::~Menu() {
+
+}
 
 
 void pressAnyKeyToContinue() { // just a simple halt for the user that doesn't enter anything into our buffer
