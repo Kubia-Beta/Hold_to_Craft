@@ -146,8 +146,15 @@ void ShowKeybinds(std::string filename) { // get the key values of pause and exi
 			exitText = line.substr(line.find("exit=") + 5); // load the rest of the line after going past "exit="
 		}
 	}
-	inFile.close(); // we are done with the file, close it
 
+	try {
+		inFile.close(); // Closes when exiting scope, but may have an error.
+	}
+	catch (std::ifstream::failure& readErr) {
+		std::cout << "\nSomething went very wrong, we could not close our file. Please send this along with the steps"
+			"you took to produce the erorr to the Nexus page.";
+	}
+	
 	// tell the user what their binds are as read in plaintext
 	std::cout << "\nPause keybind: " << ReplaceSymbols(pauseText) << std::endl;
 	std::cout << "\nExit keybind: " << ReplaceSymbols(exitText) << std::endl;
@@ -171,7 +178,6 @@ bool ValidateHotkey(std::string * uncheckedString) {
 		stringToCheck = ""; // Wipe out the other one in memory just in case before its deconstructed
 		return isValidString = false;
 	}
-	return isValidString;
 }
 
 
